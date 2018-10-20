@@ -1,6 +1,7 @@
-from flask import Flask
-app = Flask(__name__)
+from flask import Blueprint, Flask
 
-@app.route("/")
+blueprint = Blueprint('server', __name__)
+
+@blueprint.route("/")
 def index():
     return "Welcome to Earned It!"
