@@ -15,6 +15,13 @@ def get_db():
 
     return g.db
 
+def sql_select(query):
+    db = get_db()
+    cur = db.cursor()
+    cur.execute(query)
+    rows = cur.fetchall()
+    return rows
+
 def close_db(e=None):
     db = g.pop('db', None)
 
