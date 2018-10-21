@@ -2,7 +2,8 @@ import os
 
 from flask import Flask
 
-from . import db
+from . import db, scheduled
+
 from .server import *
 
 def create_app():
@@ -22,5 +23,7 @@ def create_app():
     db.init_app(app)
 
     app.register_blueprint(server.blueprint)
+
+    scheduled
 
     return app

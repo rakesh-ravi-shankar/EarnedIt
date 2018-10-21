@@ -30,13 +30,13 @@ def getPlans():
 	fitbitUserId = db.sql_select("SELECT fitbit_user_id FROM users WHERE id = '" + userId + "'")[0]
 	totalPrice, =  tuple(db.sql_select("SELECT price FROM products WHERE id = '" + productId + "'")[0])
 
-	averageSteps = fitbitwrap.getAverageSteps(userId)
+	averageSteps = fitbitwrap.getAverageSteps(fitbitUserId)
 
 	# use to test
 	# totalPrice = 50.00
 	# averageSteps = 15000
 
-	#set average goal days to 30
+	#set average goal days to 15
 	defaultDeadline = 15
 	priceRate = round(totalPrice/ (averageSteps * defaultDeadline), 4)
 
@@ -52,14 +52,13 @@ def getPlans():
 @blueprint.route("/selectPlan", methods=['POST'])
 def selectPlan():
 	payload = request.get_json()
+	print(payload)
 
 	db.sql_update("INSERT INTO %s VALUES (%s, %s, %s, %s, %s)" % ("plans", "NULL", payload.get("user_id"), payload.get("product_id"), payload.get("deadline"), payload.get("price_rate")))
 
 	plan_id, =  tuple(db.sql_select("SELECT id FROM plans WHERE user_id='" + payload.get("user_id") + "' AND product_id='" + payload.get("product_id") + "'")[0])
-
 	# TODO: Need to pull current step count
-	# TODO: BUG, remove NULL and use PAYING
-	db.sql_update("INSERT INTO %s VALUES (%s, %s, %s, %s, %s)" % ("reserved", "NULL", plan_id, 0.00, 0, "NULL"))
+	db.sql_update("INSERT INTO reserved VALUES (NULL, " + str(plan_id) + ", 0.00, 0, 'PAYING')")
 
 	return "Success"
 
