@@ -54,7 +54,7 @@ run()
             res.json(error)
         }
     }
-    const port = 8443
+    const port = process.env.PORT || 8443
 
     //app.get('.well-known/pay', spsp)
     app.use(bodyParser.json());
