@@ -21,7 +21,7 @@ CREATE TABLE plans (
 	user_id INTEGER NOT NULL,
 	product_id INTEGER NOT NULL,
 	deadline DATETIME NOT NULL,
-	price_rate FOAT NOT NULL,
+	price_rate FLOAT NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES users (id),
 	FOREIGN KEY (product_id) REFERENCES products (id)
 );
