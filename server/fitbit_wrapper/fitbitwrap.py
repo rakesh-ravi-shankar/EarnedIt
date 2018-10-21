@@ -17,7 +17,8 @@ def authorize():
 	auth2_client = fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
 
 def getAverageSteps(fbuserID):
-	return 0
+	# TODO: Query from fitbit
+	return 15000
 
 def getCurrentSteps(fbuserID):
 	return 0

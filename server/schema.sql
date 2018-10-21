@@ -20,7 +20,7 @@ CREATE TABLE plans (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	user_id INTEGER NOT NULL,
 	product_id INTEGER NOT NULL,
-	deadline DATETIME NOT NULL,
+	deadline DATE NOT NULL,
 	price_rate FLOAT NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES users (id),
 	FOREIGN KEY (product_id) REFERENCES products (id)
@@ -31,7 +31,7 @@ CREATE TABLE reserved (
 	plan_id INTEGER NOT NULL,
 	amount_paid FLOAT NOT NULL,
 	last_step_count INTEGER NOT NULL,
-	status TEXT NOT NULL, -- either 'PAID', 'PAYING', 'REFUNDED'
+	status TEXT, -- either 'PAID', 'PAYING', 'REFUNDED'
 	FOREIGN KEY (plan_id) REFERENCES plans (id)
 );
 

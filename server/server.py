@@ -6,7 +6,15 @@ blueprint = Blueprint('server', __name__)
 
 @blueprint.route("/")
 def index():
-    return "Welcome to Earned It!"
+	from . import db
+	db.init_db()
+	return "Welcome to Earned It!"
+
+@blueprint.route("/reset")
+def reset():
+	from . import db
+	db.init_db()
+	return "Reset complete!"
 
 @blueprint.route("/fitbittest")
 def fitbittest():
@@ -20,8 +28,7 @@ def getPlans():
 	userId.strip()
 
 	fitbitUserId = db.sql_select("SELECT fitbit_user_id FROM users WHERE id = '" + userId + "'")[0]
-	totalPrice =  db.sql_select("SELECT price FROM products WHERE id = '" + productId + "'")[0]
-
+	totalPrice, =  tuple(db.sql_select("SELECT price FROM products WHERE id = '" + productId + "'")[0])
 
 	averageSteps = fitbitwrap.getAverageSteps(userId)
 
@@ -42,16 +49,19 @@ def getPlans():
 	resList.append(("priceRate", priceRate))
 	return str(resList)
 
-@blueprint.route("/selectPlan")
+@blueprint.route("/selectPlan", methods=['POST'])
 def selectPlan():
-	payload = request.form
+	payload = request.get_json()
 
-	db.sql_update("INSERT INTO %s VALUES (%s, %s, %s, %s)" % ("plans", payload.get("user_id"), payload.get("product_id"), payload.get("deadline"), payload.get("price_rate")))
+	db.sql_update("INSERT INTO %s VALUES (%s, %s, %s, %s, %s)" % ("plans", "NULL", payload.get("user_id"), payload.get("product_id"), payload.get("deadline"), payload.get("price_rate")))
 
-	plan_id =  db.sql_select("SELECT id FROM plans WHERE user_id='" + payload.get("user_id") + "'' AND product_id='" + payload.get("product_id") + "'")[0]
+	plan_id, =  tuple(db.sql_select("SELECT id FROM plans WHERE user_id='" + payload.get("user_id") + "' AND product_id='" + payload.get("product_id") + "'")[0])
 
 	# TODO: Need to pull current step count
-	db.sql_update("INSERT INTO %s VALUES (%s, %s, %s, %s)" % ("reserved", plan_id, 0, 0, "PAYING"))
+	# TODO: BUG, remove NULL and use PAYING
+	db.sql_update("INSERT INTO %s VALUES (%s, %s, %s, %s, %s)" % ("reserved", "NULL", plan_id, 0.00, 0, "NULL"))
+
+	return "Success"
 
 
 
