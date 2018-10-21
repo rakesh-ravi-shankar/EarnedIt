@@ -11,7 +11,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE products (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id TEXT PRIMARY KEY,
   name TEXT UNIQUE NOT NULL,
   price FLOAT NOT NULL
 );
@@ -19,7 +19,7 @@ CREATE TABLE products (
 CREATE TABLE plans (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	user_id INTEGER NOT NULL,
-	product_id INTEGER NOT NULL,
+	product_id TEXT NOT NULL,
 	deadline DATE NOT NULL,
 	price_rate FLOAT NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES users (id),
@@ -31,7 +31,7 @@ CREATE TABLE reserved (
 	plan_id INTEGER NOT NULL,
 	amount_paid FLOAT NOT NULL,
 	last_step_count INTEGER NOT NULL,
-	status TEXT, -- either 'PAID', 'PAYING', 'REFUNDED'
+	status TEXT NOT NULL, -- either 'PAID', 'PAYING', 'REFUNDED'
 	FOREIGN KEY (plan_id) REFERENCES plans (id)
 );
 
@@ -46,3 +46,4 @@ VALUES ('0009', 'SLIM FIT CHINOS', 45.00);
 
 INSERT INTO products
 VALUES ('0015', 'PRINTED CHIFFON DRESS', 120.00);
+

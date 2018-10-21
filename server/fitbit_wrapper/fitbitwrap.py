@@ -2,6 +2,7 @@ import fitbit
 from . import gather_keys_oauth2 as Oauth2
 import pandas as pd 
 import datetime
+import random
 
 CLIENT_ID = '22D8NM'
 CLIENT_SECRET = 'bcca650d25f46953dcd2016a7d19b828'
@@ -18,10 +19,14 @@ def authorize():
 
 def getAverageSteps(fbuserID):
 	# TODO: Query from fitbit
-	return 15000
+	steps = random.randrange(10000, 15000, 100)
+	return steps
 
 def getCurrentSteps(fbuserID):
-	return 0
+	toUpdate = bool(random.getrandbits(1))
+	if toUpdate:
+		steps = random.randrange(20, 400, 20)
+	return steps
 
 if __name__ == '__main__':
 	authorize()
