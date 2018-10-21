@@ -19,5 +19,8 @@ def authorize():
 def getAverageSteps(fbuserID):
 	return 0
 
+def getCurrentSteps(fbuserID):
+	return 0
+
 if __name__ == '__main__':
 	authorize()

@@ -22,6 +22,12 @@ def sql_select(query):
     rows = cur.fetchall()
     return rows
 
+def sql_update(query):
+    db = get_db()
+    cur = db.cursor()
+    cur.execute(query)
+    db.commit()
+
 def close_db(e=None):
     db = g.pop('db', None)
 

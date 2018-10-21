@@ -31,7 +31,7 @@ CREATE TABLE reserved (
 	plan_id INTEGER NOT NULL,
 	amount_paid FLOAT NOT NULL,
 	last_step_count INTEGER NOT NULL,
-	status TEXT NOT NULL, 
+	status TEXT NOT NULL, #either 'PAID', 'PAYING', 'REFUNDED'
 	FOREIGN KEY (plan_id) REFERENCES plans (id)
 );
 

@@ -19,8 +19,8 @@ def getPlans():
 	productId = request.args.get('productId', '')
 	userId.strip()
 
-	fitbitUserId = db.sql_select(f"SELECT fitbit_user_id FROM users WHERE id = '{userId}'")[0]
-	totalPrice =  db.sql_select(f"SELECT price FROM products WHERE id = '{productId}'")[0]
+	fitbitUserId = db.sql_select("SELECT fitbit_user_id FROM users WHERE id = '" + userId + "'")[0]
+	totalPrice =  db.sql_select("SELECT price FROM products WHERE id = '" + productId + "'")[0]
 
 
 	averageSteps = fitbitwrap.getAverageSteps(userId)
@@ -38,5 +38,7 @@ def getPlans():
 	steps = [averageSteps + 3000, averageSteps + 5000, averageSteps + 8000]
 	deadlines = [round(totalSteps/i) + 4 for i in steps]
 
-	return str(list(zip(steps, deadlines)))
+	resList = list(zip(steps, deadlines))
+	resList.append(("priceRate", priceRate))
+	return str(resList)
 
