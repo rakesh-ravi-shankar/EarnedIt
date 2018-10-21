@@ -6,7 +6,7 @@ CREATE TABLE users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
-  fitbit_user_id INTEGER NOT NULL
+  fitbit_user_id TEXT NOT NULL
 );
 
 CREATE TABLE products (
@@ -24,4 +24,7 @@ CREATE TABLE reserved (
 	FOREIGN KEY (user_id) REFERENCES users (id),
 	FOREIGN KEY (product_id) REFERENCES products (id)
 );
+
+INSERT INTO users
+VALUES (1, 'asankar', 'abcd', 'who knows');
 

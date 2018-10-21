@@ -19,11 +19,11 @@ def getPlans():
 	productId = request.args.get('productId', '')
 	userId.strip()
 
-	fitbitUserId = sql_query(f"SELECT fitbit_user_id FROM users WHERE id = '{userId}'")
-	totalPrice =  sql_query(f"SELECT price FROM products WHERE id = '{productId}'")
+	fitbitUserId = db.sql_select(f"SELECT fitbit_user_id FROM users WHERE id = '{userId}'")[0]
+	totalPrice =  db.sql_select(f"SELECT price FROM products WHERE id = '{productId}'")[0]
 
-	import fitbitWrap
-	averageSteps = fitbit.getAverageSteps(userId)
+
+	averageSteps = fitbitwrap.getAverageSteps(userId)
 
 	# use to test
 	# totalPrice = 50.00
