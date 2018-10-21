@@ -18,19 +18,20 @@ CREATE TABLE products (
 
 CREATE TABLE plans (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	user_id INTEGER NOT NULL,
+	product_id INTEGER NOT NULL,
 	deadline DATETIME NOT NULL,
-	price_rate FOAT NOT NULL
+	price_rate FOAT NOT NULL,
+	FOREIGN KEY (user_id) REFERENCES users (id),
+	FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
 CREATE TABLE reserved (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	user_id INTEGER NOT NULL,
-	product_id INTEGER NOT NULL,
 	plan_id INTEGER NOT NULL,
 	amount_paid FLOAT NOT NULL,
 	last_step_count INTEGER NOT NULL,
-	FOREIGN KEY (user_id) REFERENCES users (id),
-	FOREIGN KEY (product_id) REFERENCES products (id),
+	status TEXT NOT NULL, 
 	FOREIGN KEY (plan_id) REFERENCES plans (id)
 );
 
