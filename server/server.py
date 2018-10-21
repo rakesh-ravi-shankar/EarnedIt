@@ -63,5 +63,15 @@ def selectPlan():
 
 	return "Success"
 
+@blueprint.route("/getUserPlans")
+def getUserPlans():
+	user_id = request.args.get('user_id', '')
+	plans =  [for list(row) in db.sql_select("SELECT id, product_id, deadline FROM plans WHERE user_id = '" + user_id + "'")]
+	for res in plans:
+		amount_paid =  tuple(db.sql_select("SELECT amount_paid FROM reserved WHERE plan_id = '" + res[0] + "'"))
+		res.append(amount_paid)
+
+	# [[plan_id, product_id, deadline, amount_paid], ...]
+	return str(plans)
 
 
