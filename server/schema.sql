@@ -31,10 +31,18 @@ CREATE TABLE reserved (
 	plan_id INTEGER NOT NULL,
 	amount_paid FLOAT NOT NULL,
 	last_step_count INTEGER NOT NULL,
-	status TEXT NOT NULL, #either 'PAID', 'PAYING', 'REFUNDED'
+	status TEXT NOT NULL, -- either 'PAID', 'PAYING', 'REFUNDED'
 	FOREIGN KEY (plan_id) REFERENCES plans (id)
 );
 
 INSERT INTO users
 VALUES (1, 'asankar', 'abcd', 'who knows');
 
+INSERT INTO products
+VALUES ('0023', 'PLEATED SKIRT', 49.00);
+
+INSERT INTO products
+VALUES ('0009', 'SLIM FIT CHINOS', 45.00);
+
+INSERT INTO products
+VALUES ('0015', 'PRINTED CHIFFON DRESS', 120.00);

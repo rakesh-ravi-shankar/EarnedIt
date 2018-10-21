@@ -46,12 +46,12 @@ def getPlans():
 def selectPlan():
 	payload = request.form
 
-	db.execute("INSERT INTO %s VALUES (%s, %s, %s, %s)" % ("plans", payload.get("user_id"), payload.get("product_id"), payload.get("deadline"), payload.get("price_rate")))
+	db.sql_update("INSERT INTO %s VALUES (%s, %s, %s, %s)" % ("plans", payload.get("user_id"), payload.get("product_id"), payload.get("deadline"), payload.get("price_rate")))
 
 	plan_id =  db.sql_select("SELECT id FROM plans WHERE user_id='" + payload.get("user_id") + "'' AND product_id='" + payload.get("product_id") + "'")[0]
 
 	# TODO: Need to pull current step count
-	db.execute("INSERT INTO %s VALUES (%s, %s, %s, %s)" % ("reserved", plan_id, 0, 0, "PAYING"))
+	db.sql_update("INSERT INTO %s VALUES (%s, %s, %s, %s)" % ("reserved", plan_id, 0, 0, "PAYING"))
 
 
 
